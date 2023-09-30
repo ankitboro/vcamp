@@ -1,4 +1,4 @@
-package com.example.vcamp
+package vcamp.ramailo.app
 
 import io.flutter.embedding.android.FlutterActivity
 
