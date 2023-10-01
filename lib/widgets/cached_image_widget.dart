@@ -32,7 +32,9 @@ extension ImageExtension on CachedNetworkImage {
 }
 
 Widget getPlaceHolder(BuildContext context, String url) {
-  return const Text(
-    "G",
+  return Image.asset(
+    "assets/placeholder.png",
+    fit: BoxFit.cover,
+    height: 150,
   );
 }

@@ -25,41 +25,47 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "Shopping List",
+          ),
+        ),
         body: BlocBuilder<GenerateShoppingListCubit, GenerateShoppingListState>(
-      builder: (context, state) {
-        if (state is GeneratedShoppingListState) {
-          if (state.mealPlan.entries.isEmpty) {
-            return const Center(
-              child: Text("No Shopping List Found"),
-            );
-          }
-          return ListView.separated(
-            separatorBuilder: (context, state) => const Divider(),
-            itemCount: state.mealPlan.keys.length,
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Text(
-                    state.mealPlan.keys.toList()[index],
-                  ),
-                  Text(
-                    state.mealPlan.toString(),
-                  )
-                ],
+          builder: (context, state) {
+            if (state is GeneratedShoppingListState) {
+              if (state.mealPlan.entries.isEmpty) {
+                return const Center(
+                  child: Text("No Shopping List Found"),
+                );
+              }
+              return ListView.separated(
+                separatorBuilder: (context, state) => const Divider(),
+                itemCount: state.mealPlan.keys.length,
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      Text(
+                        state.mealPlan.keys.toList()[index],
+                      ),
+                      Text(
+                        state.mealPlan.toString(),
+                      )
+                    ],
+                  );
+                },
               );
-            },
-          );
-        } else if (state is GeneratedShoppingListFailedState) {
-          return Center(
-            child: Text(
-              state.failure.message!,
-            ),
-          );
-        }
-        return const Center(
-          child: Loader(),
-        );
-      },
-    ));
+            } else if (state is GeneratedShoppingListFailedState) {
+              return Center(
+                child: Text(
+                  state.failure.message!,
+                ),
+              );
+            }
+            return const Center(
+              child: Loader(),
+            );
+          },
+        ));
   }
 }

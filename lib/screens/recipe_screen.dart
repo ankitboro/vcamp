@@ -24,17 +24,15 @@ class _RecipeScreenState extends State<RecipeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text("Recipes"),
+      ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 36),
-            Text(
-              "Recipes",
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 16),
             BlocBuilder<UserRecipeCubit, UserRecipeState>(
               builder: (context, state) {
                 if (state is UserRecipeFetchedState) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/notifications/local_notification_service.dart';
 import 'package:vcamp/notifications/notification_services.dart';
+import 'package:vcamp/screens/meal_plan_screen.dart';
 import 'package:vcamp/screens/profile_screen.dart';
 import 'package:vcamp/screens/recipe_screen.dart';
 import 'package:vcamp/screens/screens.dart';
@@ -18,7 +19,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   final _pages = const [
     RecipeScreen(),
-    RecipeScreen(),
+    MealPlanScreen(),
     ShoppingListScreen(),
     ShoppingListScreen(),
     // ShoppingListScreen(),
