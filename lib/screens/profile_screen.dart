@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +34,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           "Profile",
         ),
         actions: [
+          if (kDebugMode) ...{
+            IconButton(
+              onPressed: () async{
+                print(await FirebaseMessaging.instance.getToken());
+              },
+              icon: const Icon(
+                Icons.abc,
+              ),
+            ),
+          },
           IconButton(
             onPressed: () async {
               final response = await getConfirmationDialog(

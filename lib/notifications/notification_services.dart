@@ -55,6 +55,6 @@ Future<void> setupInteractedMessage(bool isToNavigate) async {
 }
 
 void _handleMessage(RemoteMessage message) {
-  // CloudNotification().showNotification(message);
+  CloudNotification().showNotification(message);
   navigateUserAsPerNotification(message.data);
 }

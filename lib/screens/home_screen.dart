@@ -28,6 +28,9 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     requestNotificationPermission();
+    initializeLocalNotifications();
+    handleForegroundNotification();
+
     super.initState();
   }
 
