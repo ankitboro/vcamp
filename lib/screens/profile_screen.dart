@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vcamp/blocs/profile_cubit/profile_cubit.dart';
+import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/helpers/app_helpers.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/widgets/cached_image_widget.dart';
@@ -47,32 +48,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           if (state is ProfileFetchedState) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  20.verticalSpace,
-                  ClipOval(
-                    child: CachedNetworkImage(
-                      imageUrl: state.profileModel.data?.dp ?? "",
-                    ).withPlaceHolder(),
-                  ),
-                  20.verticalSpace,
-                  Center(
-                    child: Text(
+            return Column(
+              children: [
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      height: 150,
+                      color: AppColors.primaryColor,
+                    ),
+                    Positioned(
+                      bottom: -50,
+                      left: 20,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl: state.profileModel.data?.dp ?? "",
+                        ).withPlaceHolder(),
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                8.verticalSpace,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       state.profileModel.data?.name ?? "N/A",
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                  ),
-                  10.verticalSpace,
-                  Center(
-                    child: Text(
+                    2.verticalSpace,
+                    Text(
                       state.profileModel.data?.email ?? "",
-                    ),
-                  )
-                ],
-              ),
+                    )
+                  ],
+                ),
+              ],
             );
           } else if (state is ProfileFetchErrorState) {
             return Center(
