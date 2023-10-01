@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vcamp/core/helpers/app_helpers.dart';
+import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/widgets/cached_image_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -22,6 +25,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text(
           "Profile",
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              logout();
+            },
+            icon: const Icon(
+              Icons.logout,
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
           child: Column(

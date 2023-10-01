@@ -6,6 +6,7 @@ import 'package:vcamp/core/network/base_client.dart';
 import 'package:vcamp/core/network/failure.dart';
 import 'package:vcamp/core/network/get_parsed_data.dart';
 import 'package:vcamp/core/network/success.dart';
+import 'package:vcamp/core/services/google_services.dart';
 
 class ApiServices {
   final BaseClient _client;
@@ -30,15 +31,16 @@ class ApiServices {
     );
   }
 
-  Future<Either<Success, Failure>> registerFcmToken(String fcmToken) async {
-    final response = await _client.postRequest(path: "/set-fcm-token/", data: {
-      "fcm-token": fcmToken,
-    });
-    // return getParsedData(response, );
-    return getParsedData(
-      response,
-      Success.fromJson,
-    );
+  Future<void> registerFcmToken() async {
+    final fcmToken = await locator<GoogleServices>().getFcmToken();
+    if (fcmToken != null) {
+      await _client.postRequest(
+        path: "/set-fcm-token/",
+        data: {
+          "fcm-token": fcmToken,
+        },
+      );
+    }
   }
 
   Future<Either<Map<String, dynamic>, Failure>> generateShoppingList() async {

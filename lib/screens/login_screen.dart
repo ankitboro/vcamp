@@ -17,6 +17,7 @@ class LoginScreen extends StatelessWidget {
       final signInResponse = await locator<ApiServices>().signIn(response);
       signInResponse.fold(
         (l) {
+          locator<ApiServices>().registerFcmToken();
           Navigator.of(navigatorKey.currentContext!).pushNamed(
             AppRoutes.homeScreen,
           );
