@@ -9,6 +9,7 @@ import 'package:vcamp/core/network/success.dart';
 import 'package:vcamp/core/services/google_services.dart';
 import 'package:vcamp/models/profile_model.dart';
 import 'package:vcamp/models/recipe_generated_model.dart';
+import 'package:vcamp/models/user_meal_plan_model.dart';
 import 'package:vcamp/models/user_recipe_model.dart';
 
 class ApiServices {
@@ -88,6 +89,16 @@ class ApiServices {
     return getParsedData(
       response,
       RecipeGeneratedModel.fromJson,
+    );
+  }
+
+  Future<Either<UserMealPlanModel, Failure>> fetchUserMealPlan() async {
+    final response = await _client.getRequest(
+      path: "/user/meal-plan/",
+    );
+    return getParsedData(
+      response,
+      UserMealPlanModel.fromJson,
     );
   }
 }

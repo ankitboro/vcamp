@@ -3,7 +3,7 @@ import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/screens/screens.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
-  Object? argument = settings.arguments;
+  // Object? argument = settings.arguments;
   switch (settings.name) {
     case AppRoutes.loginScreen:
       return MaterialPageRoute(

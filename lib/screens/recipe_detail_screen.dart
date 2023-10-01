@@ -35,10 +35,11 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.keyboard_arrow_left_outlined),
+          icon: const Icon(Icons.keyboard_arrow_left_outlined),
           color: Colors.black,
         ),
-        title: Text('Recipe Detail', style: TextStyle(color: Colors.black)),
+        title:
+            const Text('Recipe Detail', style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
