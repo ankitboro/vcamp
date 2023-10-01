@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
-import 'package:vcamp/screens/recipe_detail_screen.dart';
+import 'package:vcamp/core/routes/app_routes.dart';
 
 class RecipeScreen extends StatelessWidget {
   const RecipeScreen({super.key});
@@ -13,7 +13,7 @@ class RecipeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 24),
+            SizedBox(height: 32),
             Text(
               "Recipes",
               style: TextStyle(fontSize: 24),
@@ -36,8 +36,7 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => RecipeDetailScreen()));
+        Navigator.of(context).pushNamed(AppRoutes.recipeDetailScreen);
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -47,7 +46,7 @@ class RecipeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
