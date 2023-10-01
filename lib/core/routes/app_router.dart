@@ -21,6 +21,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const RecipeDetailScreen(),
       );
+    case AppRoutes.shoppingListScreen:
+      return MaterialPageRoute(
+        builder: (context) => const ShoppingListScreen(),
+      );
     default:
       return MaterialPageRoute(
         builder: (context) => const HomeScreen(),

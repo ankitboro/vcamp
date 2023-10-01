@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcamp/screens/recipe_screen.dart';
+import 'package:vcamp/screens/screens.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,12 +11,13 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
   final _pages = const [
     RecipeScreen(),
     RecipeScreen(),
-    RecipeScreen(),
-    RecipeScreen(),
-    RecipeScreen(),
+    ShoppingListScreen(),
+    ShoppingListScreen(),
+    ShoppingListScreen(),
   ];
 
   @override
@@ -46,7 +48,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Shopping List',
+            label: 'Shop List',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
