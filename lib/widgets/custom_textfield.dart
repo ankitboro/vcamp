@@ -10,7 +10,6 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool hasContentPadding;
   final Widget? prefixIcon;
-  final String? labelText;
   final TextInputAction? textInputAction;
   final Function(String)? onChanged;
   final bool? isObscure;
@@ -25,7 +24,6 @@ class CustomTextField extends StatefulWidget {
     this.isObscure = false,
     this.readOnly = false,
     this.maxLength = 255,
-    this.labelText,
     this.onTap,
     this.prefixIcon,
     this.onChanged,
@@ -54,7 +52,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           height: 2.h,
         ),
         TextFormField(
-          
           onTap: widget.onTap,
           readOnly: widget.readOnly,
           controller: widget.controller,
@@ -79,7 +76,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
             // hintText: widget.hintText,
-            hintText: widget.labelText,
+            hintText: widget.hintText,
             hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.grey,
                 ),
