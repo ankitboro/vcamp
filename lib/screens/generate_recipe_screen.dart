@@ -55,7 +55,7 @@ class _GenerateRecipeScreenState extends State<GenerateRecipeScreen> {
               fixedSize: const Size(double.maxFinite, 50),
               elevation: 0,
             ),
-            child: Text("Generate Recipe"),
+            child: Text("Generate Recipe", style: TextStyle(fontSize: 18),),
           ),
         ),
         appBar: AppBar(

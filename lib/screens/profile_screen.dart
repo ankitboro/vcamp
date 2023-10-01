@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )
                   ],
                 ),
-                16.verticalSpace,
+                24.verticalSpace,
                 if (state.profileModel.data?.preferences != null)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),

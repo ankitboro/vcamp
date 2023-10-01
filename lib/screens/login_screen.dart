@@ -64,6 +64,7 @@ class LoginScreen extends StatelessWidget {
               ),
               child: const Text(
                 "Sign in with Google",
+                style: TextStyle(fontSize: 18),
               ),
             ),
             const SizedBox(height: 8),
