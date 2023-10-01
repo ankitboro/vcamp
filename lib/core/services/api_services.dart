@@ -8,6 +8,7 @@ import 'package:vcamp/core/network/get_parsed_data.dart';
 import 'package:vcamp/core/network/success.dart';
 import 'package:vcamp/core/services/google_services.dart';
 import 'package:vcamp/models/profile_model.dart';
+import 'package:vcamp/models/user_recipe_model.dart';
 
 class ApiServices {
   final BaseClient _client;
@@ -62,6 +63,16 @@ class ApiServices {
     return getParsedData(
       response,
       ProfileModel.fromJson,
+    );
+  }
+
+  Future<Either<UserRecipeModel, Failure>> fetchUserRecipes() async {
+    final response = await _client.getRequest(
+      path: "/user/recipes/",
+    );
+    return getParsedData(
+      response,
+      UserRecipeModel.fromJson,
     );
   }
 }

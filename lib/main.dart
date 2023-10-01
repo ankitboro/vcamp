@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcamp/blocs/generate_meal_plan_cubit/generate_meal_plan_cubit.dart';
 import 'package:vcamp/blocs/profile_cubit/profile_cubit.dart';
+import 'package:vcamp/blocs/user_recipe_cuibit/user_recipe_cubit.dart';
 import 'package:vcamp/core/constants/app_constants.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/core/helpers/theme_data.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider.value(
               value: locator<ProfileCubit>(),
+            ),
+            BlocProvider.value(
+              value: locator<UserRecipeCubit>(),
             ),
           ],
           child: MaterialApp(
