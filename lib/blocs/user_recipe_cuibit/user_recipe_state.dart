@@ -4,6 +4,8 @@ sealed class UserRecipeState {}
 
 final class UserRecipeInitial extends UserRecipeState {}
 
+final class UserRecipeFetchInProgress extends UserRecipeState {}
+
 class UserRecipeFetchedState extends UserRecipeState {
   final UserRecipeModel userRecipes;
 

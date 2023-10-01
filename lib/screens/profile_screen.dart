@@ -7,6 +7,7 @@ import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/helpers/app_helpers.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/widgets/cached_image_widget.dart';
+import 'package:vcamp/widgets/loader.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -100,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Loader(),
           );
         },
       ),
