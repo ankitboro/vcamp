@@ -6,6 +6,7 @@ import 'package:vcamp/blocs/profile_cubit/profile_cubit.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/helpers/app_helpers.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
+import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/widgets/cached_image_widget.dart';
 import 'package:vcamp/widgets/loader.dart';
 
@@ -31,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         automaticallyImplyLeading: false,
         title: const Text("Profile"),
         centerTitle: true,
+        elevation: 0.5,
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
@@ -59,7 +61,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.updateProfileScreen,
+                                arguments: state.profileModel,
+                              );
+                            },
                             icon: const Icon(Icons.edit, color: Colors.white),
                           ),
                           IconButton(

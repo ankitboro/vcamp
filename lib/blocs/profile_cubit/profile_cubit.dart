@@ -24,4 +24,31 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
   }
+
+  updateProfile({
+    String? name,
+    List<String>? preferences,
+    List<String>? allergies,
+    List<String>? dietaryRestrictions,
+  }) async {
+    if (state is! ProfileFetchedState) {
+      emit(ProfileInitial());
+    }
+    final response = await _client.updateProfile(
+      name: name,
+      preferences: preferences,
+      allergies: allergies,
+      dietaryRestrictions: dietaryRestrictions,
+    );
+    emit(
+      response.fold(
+        (l) => ProfileUpdatedState(
+          profileModel: l,
+        ),
+        (r) => ProfileFetchErrorState(
+          failure: r,
+        ),
+      ),
+    );
+  }
 }

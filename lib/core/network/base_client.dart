@@ -96,6 +96,44 @@ class BaseClient {
     // if (showLoadingDialog) hideLoadingDialog();
     return response;
   }
+
+  Future<Response?> patchRequest({
+    String baseUrl = AppConstants.endpoint,
+    Map<String, String>? optionalHeaders,
+    Map<String, dynamic>? data,
+    required String path,
+    bool showLoadingDialog = false,
+  }) async {
+    Response? response;
+    // if (showLoadingDialog) displayLoadingDialog();
+    try {
+      Map<String, String> header = getHeader();
+      if (optionalHeaders != null) {
+        header.addAll(optionalHeaders);
+      }
+      final Dio dio = Dio();
+      addInterceptor(dio);
+      response = await dio.patch(
+        baseUrl + path,
+        options: Options(
+          headers: header,
+          sendTimeout: const Duration(seconds: 40),
+          receiveTimeout: const Duration(seconds: 40),
+        ),
+        data: data,
+      );
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        // debugLog(e.toString());
+
+        // logOut();
+      }
+    } catch (e) {
+      // debugLog(e.toString());
+    }
+    // if (showLoadingDialog) hideLoadingDialog();
+    return response;
+  }
 }
 
 addInterceptor(Dio dio) {

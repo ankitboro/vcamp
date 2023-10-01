@@ -68,6 +68,27 @@ class ApiServices {
     );
   }
 
+  Future<Either<ProfileModel, Failure>> updateProfile({
+    String? name,
+    List<String>? preferences,
+    List<String>? allergies,
+    List<String>? dietaryRestrictions,
+  }) async {
+    final response = await _client.patchRequest(
+      path: "/user/update-profile/",
+      data: {
+        "name": name,
+        "preferences": preferences,
+        "allergies": allergies,
+        "dietary_restrictions": dietaryRestrictions,
+      },
+    );
+    return getParsedData(
+      response,
+      ProfileModel.fromJson,
+    );
+  }
+
   Future<Either<UserRecipeModel, Failure>> fetchUserRecipes() async {
     final response = await _client.getRequest(
       path: "/user/recipes/",
