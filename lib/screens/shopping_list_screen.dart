@@ -27,6 +27,11 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
         body: BlocBuilder<GenerateShoppingListCubit, GenerateShoppingListState>(
       builder: (context, state) {
         if (state is GeneratedShoppingListState) {
+          if (state.mealPlan.entries.isEmpty) {
+            return const Center(
+              child: Text("No Shopping List Found"),
+            );
+          }
           return ListView.separated(
             separatorBuilder: (context, state) => const Divider(),
             itemCount: state.mealPlan.keys.length,

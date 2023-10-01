@@ -16,7 +16,7 @@ Future<Either<T, Failure>> getParsedData<T>(
     if (response.data is Map && response.data['success'] == true) {
       try {
         if (returnMapBody) {
-          return response.data['data'];
+          return Left(response.data['data']);
         } else {
           return Left(fromJson(response.data));
         }

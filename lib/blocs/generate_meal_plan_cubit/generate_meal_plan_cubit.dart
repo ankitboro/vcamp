@@ -14,7 +14,7 @@ class GenerateShoppingListCubit extends Cubit<GenerateShoppingListState> {
     emit(
       response.fold(
         (l) => GeneratedShoppingListState(
-          mealPlan: l['shopping_list_for_week'],
+          mealPlan: l['shopping_list_for_week'] ?? {},
         ),
         (r) => GeneratedShoppingListFailedState(
           failure: r,
