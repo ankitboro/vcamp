@@ -40,4 +40,15 @@ class ApiServices {
       Success.fromJson,
     );
   }
+
+  Future<Either<Map<String, dynamic>, Failure>> generateShoppingList() async {
+    final response = await _client.getRequest(
+      path: "/user/shopping-list/",
+    );
+    return getParsedData(
+      response,
+      Success.fromJson,
+      returnMapBody: true,
+    );
+  }
 }

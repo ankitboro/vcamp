@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vcamp/blocs/generate_meal_plan_cubit/generate_meal_plan_cubit.dart';
 import 'package:vcamp/core/network/base_client.dart';
 import 'package:vcamp/core/services/api_services.dart';
 import 'package:vcamp/core/services/google_services.dart';
@@ -15,5 +16,16 @@ setupLocator() async {
   locator.registerFactory(
     () => GoogleServices(),
   );
-  locator.registerFactory(() => ApiServices(locator(),),);
+  locator.registerFactory(
+    () => ApiServices(
+      locator(),
+    ),
+  );
+
+  //bloc and cubit
+  locator.registerLazySingleton(
+    () => GenerateShoppingListCubit(
+      locator(),
+    ),
+  );
 }

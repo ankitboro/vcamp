@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vcamp/blocs/generate_meal_plan_cubit/generate_meal_plan_cubit.dart';
 import 'package:vcamp/core/constants/app_constants.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/core/helpers/theme_data.dart';
@@ -38,23 +40,30 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'VCAMP',
-          navigatorKey: navigatorKey,
-          theme: appTheme,
-          scrollBehavior: BouncingScrollBehavior(),
-          onGenerateRoute: onGenerateRoute,
-          initialRoute: accessToken != null
-              ? AppRoutes.homeScreen
-              : AppRoutes.loginScreen,
-          builder: (context, widget) {
-            return MediaQuery(
-              ///Setting font does not change with system font size
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: widget!,
-            );
-          },
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: locator<GenerateShoppingListCubit>(),
+            ),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'VCAMP',
+            navigatorKey: navigatorKey,
+            theme: appTheme,
+            scrollBehavior: BouncingScrollBehavior(),
+            onGenerateRoute: onGenerateRoute,
+            initialRoute: accessToken != null
+                ? AppRoutes.homeScreen
+                : AppRoutes.loginScreen,
+            builder: (context, widget) {
+              return MediaQuery(
+                ///Setting font does not change with system font size
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: widget!,
+              );
+            },
+          ),
         );
       },
     );

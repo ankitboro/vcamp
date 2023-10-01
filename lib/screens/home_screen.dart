@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/screens/profile_screen.dart';
 import 'package:vcamp/screens/recipe_screen.dart';
 import 'package:vcamp/screens/screens.dart';
@@ -90,16 +91,23 @@ class HomeScreenAddBottomSheet extends StatelessWidget {
             topRight: Radius.circular(8),
           ),
         ),
-        child: const Column(
+        child: Column(
           children: [
-            ListTile(
+            const ListTile(
               title: Text("Add Recipe"),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Create Meal Plan"),
             ),
             ListTile(
-              title: Text("Generate Shopping List"),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.shoppingListScreen,
+                );
+              },
+              title: const Text(
+                "Generate Shopping List",
+              ),
             ),
           ],
         ),

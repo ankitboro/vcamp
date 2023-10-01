@@ -1,37 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vcamp/blocs/generate_meal_plan_cubit/generate_meal_plan_cubit.dart';
+import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/models/weekly_shopping_list_model.dart';
 
-class ShoppingListScreen extends StatelessWidget {
+class ShoppingListScreen extends StatefulWidget {
   const ShoppingListScreen({super.key});
+
+  @override
+  State<ShoppingListScreen> createState() => _ShoppingListScreenState();
+}
+
+class _ShoppingListScreenState extends State<ShoppingListScreen> {
+  _generateShoppingList() {
+    locator<GenerateShoppingListCubit>().generateShoppingList();
+  }
+
+  @override
+  void initState() {
+    _generateShoppingList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            const SizedBox(height: 32),
-            const Text(
-              "Shopping list for a week",
-              style: TextStyle(fontSize: 20),
+        body: BlocBuilder<GenerateShoppingListCubit, GenerateShoppingListState>(
+      builder: (context, state) {
+        if (state is GeneratedShoppingListState) {
+          return ListView.separated(
+            separatorBuilder: (context, state) => const Divider(),
+            itemCount: state.mealPlan.keys.length,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Text(
+                    state.mealPlan.keys.toList()[index],
+                  ),
+                  Text(
+                    state.mealPlan.toString(),
+                  )
+                ],
+              );
+            },
+          );
+        } else if (state is GeneratedShoppingListFailedState) {
+          return Center(
+            child: Text(
+              state.failure.message!,
             ),
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: shoppingList.entries.length,
-              separatorBuilder: (_, __) => const Divider(height: 0),
-              itemBuilder: (context, index) {
-                var listItem = shoppingList.entries.toList()[index];
-                return ListTile(
-                  title: Text(listItem.key),
-                  trailing: Text(listItem.value),
-                );
-              },
-            )
-          ],
-        ),
-      ),
-    );
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    ));
   }
 }

@@ -7,6 +7,6 @@ Map<String, String> getHeader() {
       locator<SharedPreferences>().getString(AppConstants.accessToken);
   return {
     "Content-Type": "application/json",
-    if (accessToken != null) "token": accessToken,
+    if (accessToken != null) "Authorization": "Bearer $accessToken",
   };
 }
