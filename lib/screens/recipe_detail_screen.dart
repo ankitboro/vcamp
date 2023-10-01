@@ -72,8 +72,8 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
                     );
                   },
                 ),
-                Center(child: Text('Measurement Tab Content')),
-                Center(child: Text('Process Tab Content')),
+                const Center(child: Text('Measurement Tab Content')),
+                const Center(child: Text('Process Tab Content')),
               ],
             ),
           ),
