@@ -32,8 +32,12 @@ class ProfieData {
     name = json['name'];
     email = json['email'];
     dp = json['dp'];
-    preferences = json['preferences'].cast<String>();
-    allergies = json['allergies'].cast<String>();
-    dietaryRestrictions = json['dietary_restrictions'].cast<String>();
+    preferences =
+        json['preferences'] != null ? json['preferences'].cast<String>() : null;
+    allergies =
+        json['allergies'] != null ? json['allergies'].cast<String>() : null;
+    dietaryRestrictions = json['dietary_restrictions'] != null
+        ? json['dietary_restrictions'].cast<String>()
+        : null;
   }
 }
