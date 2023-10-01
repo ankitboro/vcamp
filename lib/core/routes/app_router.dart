@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/models/profile_model.dart';
+import 'package:vcamp/models/user_recipe_model.dart';
 import 'package:vcamp/screens/generate_recipe_screen.dart';
 import 'package:vcamp/screens/screens.dart';
 import 'package:vcamp/screens/update_profile_screen.dart';
@@ -21,6 +22,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         builder: (context) => const RecipeScreen(),
       );
     case AppRoutes.recipeDetailScreen:
+      final recipe = settings.arguments as Recipes;
       return MaterialPageRoute(
         builder: (context) => const RecipeDetailScreen(),
       );
@@ -35,7 +37,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case AppRoutes.updateProfileScreen:
       final args = settings.arguments as ProfileModel;
       return MaterialPageRoute(
-        builder: (context) =>  UpdateProfileScreen(profileData: args.data),
+        builder: (context) => UpdateProfileScreen(profileData: args.data),
       );
     default:
       return MaterialPageRoute(

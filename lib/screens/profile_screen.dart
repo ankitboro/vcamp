@@ -100,6 +100,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )
                   ],
                 ),
+                24.verticalSpace,
+                if (state.profileModel.data?.preferences != null)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      children: [
+                        Text("Preferences:"),
+                        SizedBox(width: 12),
+                        ...state.profileModel.data!.preferences!
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: Chip(
+                                    label: Text(e),
+                                  ),
+                                ))
+                            .toList(),
+                      ],
+                    ),
+                  ),
+                8.verticalSpace,
+                if (state.profileModel.data?.allergies != null)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      children: [
+                        Text("Allergies"),
+                        SizedBox(width: 12),
+                        ...state.profileModel.data!.allergies!
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Chip(
+                                    label: Text(e),
+                                  ),
+                                ))
+                            .toList(),
+                      ],
+                    ),
+                  ),
+                8.verticalSpace,
+                if (state.profileModel.data?.dietaryRestrictions != null)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      children: [
+                        Text("Dietary Restrictions"),
+                        SizedBox(width: 12),
+                        ...state.profileModel.data!.dietaryRestrictions!
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: Chip(
+                                    label: Text(e),
+                                  ),
+                                ))
+                            .toList(),
+                      ],
+                    ),
+                  ),
               ],
             );
           } else if (state is ProfileFetchErrorState) {
