@@ -9,4 +9,5 @@ class AppRoutes {
   static const String menuScreen = "/menu";
   static const String profileScreen = "/profile";
   static const String updateProfileScreen = "/profile/update";
+  static const String generateRecipeScreen = "/generate-recipe-screen";
 }

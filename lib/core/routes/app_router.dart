@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
+import 'package:vcamp/screens/generate_recipe_screen.dart';
 import 'package:vcamp/screens/screens.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -24,6 +25,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case AppRoutes.shoppingListScreen:
       return MaterialPageRoute(
         builder: (context) => const ShoppingListScreen(),
+      );
+    case AppRoutes.generateRecipeScreen:
+      return MaterialPageRoute(
+        builder: (context) => const GenerateRecipeScreen(),
       );
     default:
       return MaterialPageRoute(

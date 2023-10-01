@@ -65,6 +65,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
+                  10.verticalSpace,
+                  Center(
+                    child: Text(
+                      state.profileModel.data?.email ?? "",
+                    ),
+                  )
                 ],
               ),
             );

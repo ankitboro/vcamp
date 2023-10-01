@@ -93,8 +93,13 @@ class HomeScreenAddBottomSheet extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const ListTile(
-              title: Text("Add Recipe"),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.generateRecipeScreen);
+              },
+              title: const Text(
+                "Add Recipe",
+              ),
             ),
             const ListTile(
               title: Text("Create Meal Plan"),
