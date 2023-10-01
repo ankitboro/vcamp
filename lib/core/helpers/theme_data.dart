@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: const Color(0xFFF57C00),
@@ -8,6 +9,7 @@ final ThemeData appTheme = ThemeData(
     backgroundColor: Color(0xFFF57C00),
     foregroundColor: Colors.white,
   ),
+  fontFamily: GoogleFonts.rubik().fontFamily,
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
       fontSize: 30,

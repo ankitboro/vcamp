@@ -1,18 +1,18 @@
 class ProfileModel {
   bool? success;
   String? message;
-  ProfieData? data;
+  ProfileData? data;
 
   ProfileModel({this.success, this.message, this.data});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? ProfieData.fromJson(json['data']) : null;
+    data = json['data'] != null ? ProfileData.fromJson(json['data']) : null;
   }
 }
 
-class ProfieData {
+class ProfileData {
   String? name;
   String? email;
   String? dp;
@@ -20,7 +20,7 @@ class ProfieData {
   List<String>? allergies;
   List<String>? dietaryRestrictions;
 
-  ProfieData(
+  ProfileData(
       {this.name,
       this.email,
       this.dp,
@@ -28,7 +28,7 @@ class ProfieData {
       this.allergies,
       this.dietaryRestrictions});
 
-  ProfieData.fromJson(Map<String, dynamic> json) {
+  ProfileData.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
     dp = json['dp'];

@@ -11,7 +11,7 @@ class UserRecipeCubit extends Cubit<UserRecipeState> {
 
   fetchUserRecipes() async {
     if (state is! UserRecipeFetchedState) {
-      emit(UserRecipeInitial());
+      emit(UserRecipeFetchInProgress());
     }
 
     final response = await _client.fetchUserRecipes();

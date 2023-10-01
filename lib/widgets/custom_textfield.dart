@@ -49,7 +49,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         SizedBox(
-          height: 2.h,
+          height: 3.h,
         ),
         TextFormField(
           onTap: widget.onTap,

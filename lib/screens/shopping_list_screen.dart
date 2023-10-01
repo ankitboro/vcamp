@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vcamp/blocs/generate_meal_plan_cubit/generate_meal_plan_cubit.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
+import 'package:vcamp/widgets/loader.dart';
 
 class ShoppingListScreen extends StatefulWidget {
   const ShoppingListScreen({super.key});
@@ -56,7 +57,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           );
         }
         return const Center(
-          child: CircularProgressIndicator(),
+          child: Loader(),
         );
       },
     ));

@@ -10,6 +10,12 @@ class ProfileFetchedState extends ProfileState {
     required this.profileModel,
   });
 }
+class ProfileUpdatedState extends ProfileState {
+  final ProfileModel profileModel;
+  ProfileUpdatedState({
+    required this.profileModel,
+  });
+}
 
 class ProfileFetchErrorState extends ProfileState {
   final Failure failure;

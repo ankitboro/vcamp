@@ -5,6 +5,7 @@ import 'package:vcamp/blocs/user_recipe_cuibit/user_recipe_cubit.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/models/user_recipe_model.dart';
+import 'package:vcamp/widgets/loader.dart';
 
 class RecipeScreen extends StatefulWidget {
   const RecipeScreen({super.key});
@@ -28,7 +29,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 32),
+            SizedBox(height: 36),
             Text(
               "Recipes",
               style: TextStyle(fontSize: 24),
@@ -40,11 +41,9 @@ class _RecipeScreenState extends State<RecipeScreen> {
                   final recipeList = state.userRecipes.data?.recipes;
                   if (recipeList != null) {
                     if (recipeList.isEmpty) {
-                      return Center(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * .8,
-                          child: Text("No recipes found!"),
-                        ),
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * .8,
+                        child: const Center(child: Text("No recipes found!")),
                       );
                     }
                     return ListView.builder(
@@ -59,6 +58,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
                     );
                   }
                 }
+                if (state is UserRecipeFetchInProgress) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * .8,
+                    child: const Loader(),
+                  );
+                }
+
                 return const SizedBox();
               },
             ),

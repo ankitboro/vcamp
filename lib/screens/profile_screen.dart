@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +6,9 @@ import 'package:vcamp/blocs/profile_cubit/profile_cubit.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/helpers/app_helpers.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
+import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/widgets/cached_image_widget.dart';
+import 'package:vcamp/widgets/loader.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -30,32 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Profile",
-        ),
-        actions: [
-          if (kDebugMode) ...{
-            IconButton(
-              onPressed: () async{
-                print(await FirebaseMessaging.instance.getToken());
-              },
-              icon: const Icon(
-                Icons.abc,
-              ),
-            ),
-          },
-          IconButton(
-            onPressed: () async {
-              final response = await getConfirmationDialog(
-                title: "Do you want to log out ?",
-              );
-              if (response) logout();
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          )
-        ],
+        title: const Text("Profile"),
+        centerTitle: true,
+        elevation: 0.5,
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
@@ -81,9 +58,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Positioned(
                       right: 0,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit, color: Colors.white),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.updateProfileScreen,
+                                arguments: state.profileModel,
+                              );
+                            },
+                            icon: const Icon(Icons.edit, color: Colors.white),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              final response = await getConfirmationDialog(
+                                title: "Do you want to log out ?",
+                              );
+                              if (response) logout();
+                            },
+                            icon: const Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -112,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Loader(),
           );
         },
       ),
