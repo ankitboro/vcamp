@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
+import 'package:vcamp/core/helpers/service_locator.dart';
+import 'package:vcamp/core/helpers/show_toast.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
+import 'package:vcamp/core/services/api_services.dart';
+import 'package:vcamp/core/services/google_services.dart';
+import 'package:vcamp/main.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  _signIn() async {
+    final response = await locator<GoogleServices>().signInWithGoogle();
+    if (response != null) {
+      final signInResponse = await locator<ApiServices>().signIn(response);
+      signInResponse.fold(
+        (l) {
+          Navigator.of(navigatorKey.currentContext!).pushNamed(
+            AppRoutes.homeScreen,
+          );
+        },
+        (r) => showErrorToast(
+          r.message!,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +53,17 @@ class LoginScreen extends StatelessWidget {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.homeScreen);
+              onPressed: () async {
+                _signIn();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 fixedSize: const Size(double.maxFinite, 50),
                 elevation: 0,
               ),
-              child: const Text("Sign in with Google"),
+              child: const Text(
+                "Sign in with Google",
+              ),
             ),
             const SizedBox(height: 8),
           ],

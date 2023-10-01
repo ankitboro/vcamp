@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcamp/screens/profile_screen.dart';
 import 'package:vcamp/screens/recipe_screen.dart';
 import 'package:vcamp/screens/screens.dart';
 
@@ -17,7 +18,8 @@ class HomeScreenState extends State<HomeScreen> {
     RecipeScreen(),
     ShoppingListScreen(),
     ShoppingListScreen(),
-    ShoppingListScreen(),
+    // ShoppingListScreen(),
+    ProfileScreen(),
   ];
 
   @override

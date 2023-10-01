@@ -10,7 +10,7 @@ Future<Either<T, Failure>> getParsedData<T>(
     Response? response, dynamic fromJson) async {
   if (response != null && successStatusCodes.contains(response.statusCode)) {
     //handle success here
-    if (response.data is Map && response.data['status-code'] == 1) {
+    if (response.data is Map && response.data['success'] == true) {
       try {
         return Left(fromJson(response.data));
       } catch (e) {
