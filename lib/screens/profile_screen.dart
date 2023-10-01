@@ -34,8 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              logout();
+            onPressed: () async {
+              final response = await getConfirmationDialog(
+                title: "Do you want to log out ?",
+              );
+              if (response) logout();
             },
             icon: const Icon(
               Icons.logout,
