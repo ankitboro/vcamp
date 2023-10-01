@@ -103,17 +103,22 @@ class HomeScreenAddBottomSheet extends StatelessWidget {
           children: [
             ListTile(
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(AppRoutes.generateRecipeScreen);
               },
               title: const Text(
-                "Add Recipe",
+                "Generate Recipe",
               ),
             ),
-            const ListTile(
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
               title: Text("Create Meal Plan"),
             ),
             ListTile(
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(
                   AppRoutes.shoppingListScreen,
                 );

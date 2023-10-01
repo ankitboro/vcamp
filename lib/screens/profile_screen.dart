@@ -29,22 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Profile",
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              final response = await getConfirmationDialog(
-                title: "Do you want to log out ?",
-              );
-              if (response) logout();
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          )
-        ],
+        title: const Text("Profile"),
+        centerTitle: true,
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
@@ -70,9 +56,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Positioned(
                       right: 0,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit, color: Colors.white),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.edit, color: Colors.white),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              final response = await getConfirmationDialog(
+                                title: "Do you want to log out ?",
+                              );
+                              if (response) logout();
+                            },
+                            icon: const Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
