@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:vcamp/blocs/user_recipe_cuibit/user_recipe_cubit.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
+import 'package:vcamp/models/user_recipe_model.dart';
 
-class RecipeScreen extends StatelessWidget {
+class RecipeScreen extends StatefulWidget {
   const RecipeScreen({super.key});
 
   @override
+  State<RecipeScreen> createState() => _RecipeScreenState();
+}
+
+class _RecipeScreenState extends State<RecipeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserRecipeCubit>().fetchUserRecipes();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
@@ -19,9 +34,34 @@ class RecipeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 16),
-            RecipeCard(),
-            RecipeCard(),
-            RecipeCard(),
+            BlocBuilder<UserRecipeCubit, UserRecipeState>(
+              builder: (context, state) {
+                if (state is UserRecipeFetchedState) {
+                  final recipeList = state.userRecipes.data?.recipes;
+                  if (recipeList != null) {
+                    if (recipeList.isEmpty) {
+                      return Center(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * .8,
+                          child: Text("No recipes found!"),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: recipeList.length,
+                      itemBuilder: (context, index) {
+                        return RecipeCard(
+                          recipe: recipeList[index],
+                        );
+                      },
+                    );
+                  }
+                }
+                return const SizedBox();
+              },
+            ),
           ],
         ),
       ),
@@ -30,7 +70,11 @@ class RecipeScreen extends StatelessWidget {
 }
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({super.key});
+  final Recipes recipe;
+  const RecipeCard({
+    Key? key,
+    required this.recipe,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +95,7 @@ class RecipeCard extends StatelessWidget {
                 topRight: Radius.circular(8),
               ),
               child: Image.network(
-                "https://v-camp.s3.amazonaws.com/recipe/recipe.jpg",
+                recipe.imageUrl ?? "",
                 height: 150,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
@@ -60,14 +104,14 @@ class RecipeCard extends StatelessWidget {
             SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text("Recipe name"),
+              child: Text(recipe.name.toString()),
             ),
             SizedBox(height: 4),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
-                children: ["Ingr1", "Ingr2", "Ingr3", "Ingr4", "Ingr5", "Ingr6"]
+                children: recipe.ingredients!
                     .map(
                       (e) => Container(
                         margin: EdgeInsets.only(right: 8),
