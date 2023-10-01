@@ -11,6 +11,6 @@ showErrorToast(String msg) {
 showSuccessToast(String message) {
   Fluttertoast.showToast(
     msg: message,
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.teal,
   );
 }

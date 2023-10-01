@@ -10,7 +10,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this._client) : super(ProfileInitial());
   fetchProfile() async {
     if (state is! ProfileFetchedState) {
-      emit(ProfileInitial());
+      emit(ProfileFetchInProgress());
     }
     final response = await _client.fetchProfile();
     emit(
@@ -32,7 +32,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     List<String>? dietaryRestrictions,
   }) async {
     if (state is! ProfileFetchedState) {
-      emit(ProfileInitial());
+      emit(ProfileFetchInProgress());
     }
     final response = await _client.updateProfile(
       name: name,
@@ -42,9 +42,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
     emit(
       response.fold(
-        (l) => ProfileUpdatedState(
+        (l) {
+          fetchProfile();
+          return ProfileUpdatedState(
           profileModel: l,
-        ),
+        );
+        },
         (r) => ProfileFetchErrorState(
           failure: r,
         ),

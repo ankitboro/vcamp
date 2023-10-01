@@ -4,6 +4,8 @@ sealed class ProfileState {}
 
 final class ProfileInitial extends ProfileState {}
 
+final class ProfileFetchInProgress extends ProfileState {}
+
 class ProfileFetchedState extends ProfileState {
   final ProfileModel profileModel;
   ProfileFetchedState({
