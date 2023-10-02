@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
+import 'package:vcamp/models/user_recipe_model.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
-  const RecipeDetailScreen({super.key});
+  final Recipes recipe;
+  const RecipeDetailScreen({
+    super.key,
+    required this.recipe,
+  });
 
   @override
   RecipeDetailScreenState createState() => RecipeDetailScreenState();
@@ -23,8 +28,6 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
     _tabController.dispose();
     super.dispose();
   }
-
-  var ingredients = ["Ingredient 1", "Ing2", "Ing3", "Ing4"];
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +68,39 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
               controller: _tabController,
               children: [
                 ListView.builder(
-                  itemCount: ingredients.length,
+                  itemCount: widget.recipe.ingredients?.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(ingredients[index]),
+                      title: Text(widget.recipe.ingredients![index]),
                     );
                   },
                 ),
-                const Center(child: Text('Measurement Tab Content')),
-                const Center(child: Text('Process Tab Content')),
+                ListView.builder(
+                  itemCount:
+                      widget.recipe.measurements?.measurementDetails?.length,
+                  itemBuilder: (context, index) {
+                    MeasurementDetails detail =
+                        widget.recipe.measurements!.measurementDetails![index];
+                    return ListTile(
+                      title: Text(
+                        detail.item ?? '',
+                      ),
+                      subtitle: Text(
+                        detail.amount ?? "",
+                      ),
+                    );
+                  },
+                ),
+                ListView.builder(
+                  itemCount: widget.recipe.process?.processes?.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        "Step ${index + 1}: ${widget.recipe.process!.processes![index]}",
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

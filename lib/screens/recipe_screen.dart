@@ -85,7 +85,10 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(AppRoutes.recipeDetailScreen);
+        Navigator.of(context).pushNamed(
+          AppRoutes.recipeDetailScreen,
+          arguments: recipe,
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(

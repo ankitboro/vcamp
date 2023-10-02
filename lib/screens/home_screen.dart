@@ -54,8 +54,8 @@ class HomeScreenState extends State<HomeScreen> {
             label: 'Recipes',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Ingredients',
+            icon: Icon(Icons.food_bank),
+            label: 'Meal Plan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
@@ -73,13 +73,14 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: (context) {
-              return const HomeScreenAddBottomSheet();
-            },
-          );
+          Navigator.of(context).pushNamed(AppRoutes.generateRecipeScreen);
+          // showModalBottomSheet(
+          //   context: context,
+          //   backgroundColor: Colors.transparent,
+          //   builder: (context) {
+          //     return const HomeScreenAddBottomSheet();
+          //   },
+          // );
         },
         child: const Icon(Icons.add),
       ),

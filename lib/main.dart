@@ -35,19 +35,15 @@ void main() async {
   String? accessToken =
       locator<SharedPreferences>().getString(AppConstants.accessToken);
   runApp(
-    MyApp(
-      accessToken: accessToken,
-    ),
+    const MyApp(),
   );
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
-  final String? accessToken;
   const MyApp({
     super.key,
-    this.accessToken,
   });
 
   @override
@@ -82,9 +78,7 @@ class MyApp extends StatelessWidget {
             theme: appTheme,
             scrollBehavior: BouncingScrollBehavior(),
             onGenerateRoute: onGenerateRoute,
-            initialRoute: accessToken != null
-                ? AppRoutes.homeScreen
-                : AppRoutes.loginScreen,
+            initialRoute: AppRoutes.loaderScreen,
             builder: (context, widget) {
               return MediaQuery(
                 ///Setting font does not change with system font size

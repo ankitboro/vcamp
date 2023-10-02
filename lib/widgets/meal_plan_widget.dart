@@ -6,12 +6,14 @@ import 'package:vcamp/widgets/screen_padding.dart';
 
 class MealPlanWidget extends StatelessWidget {
   final String imageUrl;
+  final String dayName;
   final List<String> nutritionList;
   final String name;
   const MealPlanWidget({
     super.key,
     required this.imageUrl,
     required this.name,
+    required this.dayName,
     required this.nutritionList,
   });
 
@@ -26,7 +28,7 @@ class MealPlanWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Sunday",
+              dayName,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             10.verticalSpace,

@@ -7,11 +7,12 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcamp/core/constants/app_constants.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
+import 'package:vcamp/core/helpers/show_loading_dialog.dart';
 import 'package:vcamp/core/network/header.dart';
 
 class BaseClient {
   Future<Response<dynamic>?> getRequest({
-    String baseUrl = AppConstants.endpoint,
+    String baseUrl = "",
     Map<String, String>? optionalHeaders,
     Map<String, dynamic>? queryParameters,
     required String path,
@@ -29,7 +30,7 @@ class BaseClient {
       final Dio dio = Dio();
       addInterceptor(dio);
       response = await dio.get(
-        baseUrl + path,
+        baseUrl.isNotEmpty ? baseUrl + path : AppConstants.endpoint + path,
         queryParameters: queryParameters,
         options: Options(
           headers: header,
@@ -60,14 +61,15 @@ class BaseClient {
   }
 
   Future<Response?> postRequest({
-    String baseUrl = AppConstants.endpoint,
     Map<String, String>? optionalHeaders,
     Map<String, dynamic>? data,
     required String path,
-    bool showLoadingDialog = false,
+    bool displayDialog = false,
   }) async {
     Response? response;
-    // if (showLoadingDialog) displayLoadingDialog();
+    if (displayDialog) {
+      showLoadingDialog();
+    }
     try {
       Map<String, String> header = getHeader();
       if (optionalHeaders != null) {
@@ -76,7 +78,7 @@ class BaseClient {
       final Dio dio = Dio();
       addInterceptor(dio);
       response = await dio.post(
-        baseUrl + path,
+        AppConstants.endpoint + path,
         options: Options(
           headers: header,
           sendTimeout: const Duration(seconds: 40),
@@ -93,12 +95,12 @@ class BaseClient {
     } catch (e) {
       // debugLog(e.toString());
     }
-    // if (showLoadingDialog) hideLoadingDialog();
+    if (displayDialog) hideLoadingDialog();
     return response;
   }
 
   Future<Response?> patchRequest({
-    String baseUrl = AppConstants.endpoint,
+    String baseUrl = "",
     Map<String, String>? optionalHeaders,
     Map<String, dynamic>? data,
     required String path,
@@ -114,7 +116,7 @@ class BaseClient {
       final Dio dio = Dio();
       addInterceptor(dio);
       response = await dio.patch(
-        baseUrl + path,
+        AppConstants.endpoint + path,
         options: Options(
           headers: header,
           sendTimeout: const Duration(seconds: 40),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
@@ -14,7 +15,9 @@ class LoginScreen extends StatelessWidget {
   _signIn() async {
     final response = await locator<GoogleServices>().signInWithGoogle();
     if (response != null) {
-      final signInResponse = await locator<ApiServices>().signIn(response);
+      final signInResponse = await locator<ApiServices>().signIn(
+        response,
+      );
       signInResponse.fold(
         (l) {
           locator<ApiServices>().registerFcmToken();
@@ -32,44 +35,55 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            const Text(
-              "Hello, VCampers",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+      body: Stack(
+        children: [
+          Image.asset(
+            "assets/2.jpg",
+            fit: BoxFit.cover,
+            height: 1.sh,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Text(
+                  "Vcamper: Where Flavor Meets Functionality!",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Colors.white),
+                ),
+                5.verticalSpace,
+                Text(
+                  "Discover recipes, plan meals, and conquer the grocery store effortlessly. Your culinary adventure begins here.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Colors.white),
+                ),
+                20.verticalSpace,
+                ElevatedButton(
+                  onPressed: () async {
+                    _signIn();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    fixedSize: const Size(double.maxFinite, 50),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    "Sign in with Google",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
             ),
-            const SizedBox(height: 32),
-            SvgPicture.asset(
-              "assets/diet_plan.svg",
-              height: 200,
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              "Vcamper: Where Flavor Meets Functionality! Discover recipes, plan meals, and conquer the grocery store effortlessly. Your culinary adventure begins here",
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () async {
-                _signIn();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-                fixedSize: const Size(double.maxFinite, 50),
-                elevation: 0,
-              ),
-              child: const Text(
-                "Sign in with Google",
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

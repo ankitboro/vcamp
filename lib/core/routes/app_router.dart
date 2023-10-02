@@ -3,11 +3,12 @@ import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/models/profile_model.dart';
 import 'package:vcamp/models/user_recipe_model.dart';
 import 'package:vcamp/screens/generate_recipe_screen.dart';
+import 'package:vcamp/screens/loader_screen.dart';
 import 'package:vcamp/screens/screens.dart';
 import 'package:vcamp/screens/update_profile_screen.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
-  // Object? argument = settings.arguments;
+  Object? argument = settings.arguments;
   switch (settings.name) {
     case AppRoutes.loginScreen:
       return MaterialPageRoute(
@@ -22,9 +23,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         builder: (context) => const RecipeScreen(),
       );
     case AppRoutes.recipeDetailScreen:
-      final recipe = settings.arguments as Recipes;
       return MaterialPageRoute(
-        builder: (context) => const RecipeDetailScreen(),
+        builder: (context) => RecipeDetailScreen(
+          recipe: argument as Recipes,
+        ),
       );
     case AppRoutes.shoppingListScreen:
       return MaterialPageRoute(
@@ -33,6 +35,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case AppRoutes.generateRecipeScreen:
       return MaterialPageRoute(
         builder: (context) => const GenerateRecipeScreen(),
+      );
+    case AppRoutes.loaderScreen:
+      return MaterialPageRoute(
+        builder: (context) => const LoaderScreen(),
       );
     case AppRoutes.updateProfileScreen:
       final args = settings.arguments as ProfileModel;

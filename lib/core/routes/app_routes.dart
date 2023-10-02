@@ -8,6 +8,7 @@ class AppRoutes {
   static const String mealPlannerScreen = "/meal/planner";
   static const String menuScreen = "/menu";
   static const String profileScreen = "/profile";
+  static const String loaderScreen = "/loader-screen";
   static const String updateProfileScreen = "/profile/update";
   static const String generateRecipeScreen = "/generate-recipe-screen";
 }

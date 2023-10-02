@@ -22,6 +22,7 @@ class ApiServices {
       data: {
         "token": userToken,
       },
+      displayDialog: true,
     );
     if (response?.statusCode == 200 &&
         response?.data['data'] != null &&
