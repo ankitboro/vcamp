@@ -28,8 +28,7 @@ class _LoaderScreenState extends State<LoaderScreen> {
           "https://v-camp.s3.ap-south-1.amazonaws.com/public-images/host.json",
       path: "",
     );
-    AppConstants.endpoint =
-        response?.data['host'].replaceAll("http", "https") + "/api";
+    AppConstants.endpoint = response?.data['host'] + "/api";
     await Future.delayed(
       const Duration(milliseconds: 300),
     );

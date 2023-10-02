@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,7 @@ class BaseClient {
 
       final Dio dio = Dio();
       addInterceptor(dio);
+      addCertificate(dio);
       response = await dio.get(
         baseUrl.isNotEmpty ? baseUrl + path : AppConstants.endpoint + path,
         queryParameters: queryParameters,
@@ -77,6 +79,7 @@ class BaseClient {
       }
       final Dio dio = Dio();
       addInterceptor(dio);
+      addCertificate(dio);
       response = await dio.post(
         AppConstants.endpoint + path,
         options: Options(
@@ -115,6 +118,7 @@ class BaseClient {
       }
       final Dio dio = Dio();
       addInterceptor(dio);
+      addCertificate(dio);
       response = await dio.patch(
         AppConstants.endpoint + path,
         options: Options(
@@ -150,4 +154,14 @@ addInterceptor(Dio dio) {
       ),
     );
   }
+}
+
+addCertificate(Dio dio) {
+  // ignore: deprecated_member_use
+  (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+      (HttpClient dioClient) {
+    dioClient.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+    return dioClient;
+  };
 }
