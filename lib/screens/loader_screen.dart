@@ -28,7 +28,8 @@ class _LoaderScreenState extends State<LoaderScreen> {
           "https://v-camp.s3.ap-south-1.amazonaws.com/public-images/host.json",
       path: "",
     );
-    AppConstants.endpoint = response?.data['host'] + "/api";
+    // AppConstants.endpoint = response?.data['host'] + "/api";
+    AppConstants.endpoint = "http://65.2.142.108:8000/api";
     await Future.delayed(
       const Duration(milliseconds: 300),
     );

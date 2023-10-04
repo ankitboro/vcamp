@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/models/user_recipe_model.dart';
+import 'package:vcamp/widgets/cached_image_widget.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final Recipes recipe;
@@ -20,7 +23,7 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -41,8 +44,8 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
           icon: const Icon(Icons.keyboard_arrow_left_outlined),
           color: Colors.black,
         ),
-        title:
-            const Text('Recipe Detail', style: TextStyle(color: Colors.black)),
+        title: Text(widget.recipe.name ?? "Recipe Detail",
+            style: const TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -50,6 +53,24 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
       body: Column(
         children: [
           const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+            ),
+            child: Hero(
+              tag: widget.recipe.id ?? "1",
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CachedNetworkImage(
+                  imageUrl: widget.recipe.imageUrl ?? "",
+                  height: 150.h,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ).withPlaceHolder(),
+              ),
+            ),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TabBar(
@@ -58,6 +79,7 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
               indicatorColor: AppColors.primaryColor,
               tabs: const [
                 Tab(text: 'Ingredients'),
+                Tab(text: 'Nutrients'),
                 Tab(text: 'Measurement'),
                 Tab(text: 'Process'),
               ],
@@ -72,6 +94,14 @@ class RecipeDetailScreenState extends State<RecipeDetailScreen>
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(widget.recipe.ingredients![index]),
+                    );
+                  },
+                ),
+                ListView.builder(
+                  itemCount: widget.recipe.nutrition?.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(widget.recipe.nutrition![index]),
                     );
                   },
                 ),

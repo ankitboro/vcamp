@@ -18,3 +18,17 @@ class UserMealPlanfetchErrorState extends UserMealPlanState {
     required this.failure,
   });
 }
+
+class UserMealPlanGenerateSuccessState extends UserMealPlanState {
+  final String message;
+  UserMealPlanGenerateSuccessState({
+    required this.message,
+  });
+}
+
+class UserMealPlanGenerateFailureState extends UserMealPlanState {
+  final String errorMsg;
+  UserMealPlanGenerateFailureState({
+    required this.errorMsg,
+  });
+}

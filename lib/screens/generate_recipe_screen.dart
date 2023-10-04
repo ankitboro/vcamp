@@ -8,6 +8,7 @@ import 'package:vcamp/core/helpers/input_validators.dart';
 import 'package:vcamp/core/helpers/service_locator.dart';
 import 'package:vcamp/core/helpers/show_info_dialog.dart';
 import 'package:vcamp/core/helpers/show_toast.dart';
+import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/widgets/custom_textfield.dart';
 import 'package:vcamp/widgets/primary_button.dart';
 import 'package:vcamp/widgets/screen_padding.dart';
@@ -31,9 +32,14 @@ class _GenerateRecipeScreenState extends State<GenerateRecipeScreen> {
       listener: (context, state) {
         if (state is GeneratedRecipeState) {
           showInfoDialog(
-            message: state.data.message ??
-                "Recipe Generation Is On Process. You'll Get Notified After Completion.",
-          );
+              message: state.data.message ??
+                  "Recipe Generation Is On Process. You'll Get Notified After Completion.",
+              onOkPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRoutes.homeScreen,
+                  (route) => false,
+                );
+              });
         } else if (state is RecipeGenerationFailedState) {
           showErrorToast(state.failure.message!);
         }
@@ -55,7 +61,10 @@ class _GenerateRecipeScreenState extends State<GenerateRecipeScreen> {
               fixedSize: const Size(double.maxFinite, 50),
               elevation: 0,
             ),
-            child: Text("Generate Recipe", style: TextStyle(fontSize: 18),),
+            child: Text(
+              "Generate Recipe",
+              style: TextStyle(fontSize: 18),
+            ),
           ),
         ),
         appBar: AppBar(

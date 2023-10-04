@@ -95,6 +95,7 @@ class BaseClient {
 
         // logOut();
       }
+      return e.response;
     } catch (e) {
       // debugLog(e.toString());
     }

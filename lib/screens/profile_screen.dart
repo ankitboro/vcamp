@@ -38,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           if (state is ProfileFetchedState) {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Stack(
                   clipBehavior: Clip.none,
@@ -53,6 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
                           imageUrl: state.profileModel.data?.dp ?? "",
+                          width: 100.w,
+                          height: 100.w,
                         ).withPlaceHolder(),
                       ),
                     ),
@@ -87,74 +90,89 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 8.verticalSpace,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      state.profileModel.data?.name ?? "N/A",
-                      style: Theme.of(context).textTheme.bodyLarge,
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          state.profileModel.data?.name ?? "N/A",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        2.verticalSpace,
+                        Text(
+                          state.profileModel.data?.email ?? "",
+                        )
+                      ],
                     ),
-                    2.verticalSpace,
-                    Text(
-                      state.profileModel.data?.email ?? "",
-                    )
-                  ],
+                  ),
                 ),
                 24.verticalSpace,
                 if (state.profileModel.data?.preferences != null)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Text("Preferences:"),
-                        SizedBox(width: 12),
-                        ...state.profileModel.data!.preferences!
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Chip(
-                                    label: Text(e),
-                                  ),
-                                ))
-                            .toList(),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("Preferences:"),
+                          SizedBox(width: 12),
+                          ...state.profileModel.data!.preferences!
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: Chip(
+                                      label: Text(e),
+                                    ),
+                                  ))
+                              .toList(),
+                        ],
+                      ),
                     ),
                   ),
                 8.verticalSpace,
                 if (state.profileModel.data?.allergies != null)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Text("Allergies"),
-                        SizedBox(width: 12),
-                        ...state.profileModel.data!.allergies!
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Chip(
-                                    label: Text(e),
-                                  ),
-                                ))
-                            .toList(),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("Allergies"),
+                          SizedBox(width: 12),
+                          ...state.profileModel.data!.allergies!
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Chip(
+                                      label: Text(e),
+                                    ),
+                                  ))
+                              .toList(),
+                        ],
+                      ),
                     ),
                   ),
                 8.verticalSpace,
                 if (state.profileModel.data?.dietaryRestrictions != null)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Text("Dietary Restrictions"),
-                        SizedBox(width: 12),
-                        ...state.profileModel.data!.dietaryRestrictions!
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Chip(
-                                    label: Text(e),
-                                  ),
-                                ))
-                            .toList(),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("Dietary Restrictions"),
+                          SizedBox(width: 12),
+                          ...state.profileModel.data!.dietaryRestrictions!
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: Chip(
+                                      label: Text(e),
+                                    ),
+                                  ))
+                              .toList(),
+                        ],
+                      ),
                     ),
                   ),
               ],

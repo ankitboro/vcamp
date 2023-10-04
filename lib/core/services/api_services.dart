@@ -114,6 +114,16 @@ class ApiServices {
     );
   }
 
+  Future<Either<Success, Failure>> generateUserMealPlan() async {
+    final response = await _client.postRequest(
+      path: "/meal/generate-meal-plan/",
+    );
+    return getParsedData(
+      response,
+      Success.fromJson,
+    );
+  }
+
   Future<Either<UserMealPlanModel, Failure>> fetchUserMealPlan() async {
     final response = await _client.getRequest(
       path: "/user/meal-plan/",

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:vcamp/blocs/user_recipe_cuibit/user_recipe_cubit.dart';
 import 'package:vcamp/core/constants/app_colors.dart';
 import 'package:vcamp/core/routes/app_routes.dart';
 import 'package:vcamp/models/user_recipe_model.dart';
+import 'package:vcamp/widgets/cached_image_widget.dart';
 import 'package:vcamp/widgets/loader.dart';
 
 class RecipeScreen extends StatefulWidget {
@@ -28,6 +30,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text("Recipes"),
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -97,19 +100,23 @@ class RecipeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 4.h),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
-              child: Image.network(
-                recipe.imageUrl ?? "",
-                height: 150,
-                width: double.maxFinite,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: recipe.id ?? "1",
+                child: CachedNetworkImage(
+                  imageUrl: recipe.imageUrl ?? "",
+                  height: 140.h,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ).withPlaceHolder(),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(recipe.name.toString()),

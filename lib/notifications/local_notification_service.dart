@@ -28,7 +28,7 @@ class CloudNotification {
     'High Importance Notifications',
     importance: Importance.max,
     priority: Priority.high,
-    icon: "@mipmap/ic_launcher",
+    icon: "@drawable/notification_icon",
     playSound: true,
     enableVibration: true,
     showWhen: true,

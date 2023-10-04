@@ -5,6 +5,7 @@ import 'package:vcamp/main.dart';
 
 showInfoDialog({
   required String message,
+  VoidCallback? onOkPressed,
   BuildContext? context,
 }) {
   showDialog(
@@ -17,10 +18,9 @@ showInfoDialog({
           TextButton(
             onPressed: () {
               // Navigator.of(context).pop();
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRoutes.homeScreen,
-                (route) => false,
-              );
+              if (onOkPressed != null) {
+                onOkPressed();
+              }
             },
             child: const Text(
               "OK",
